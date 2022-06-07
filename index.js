@@ -12,8 +12,9 @@ const middleware = webpackMiddleware(compiler, {
   serverSideRender: false,
   watchOptions: {
     // Due to iOS devices memory constraints
-    // disabling file watching is recommended 
-    ignored: /.*/
+    // disabling file watching is recommended
+    aggregateTimeout: 600,
+    ignored: ['node_modules', 'dist', 'public']
   }
 });
 app.use(middleware);
