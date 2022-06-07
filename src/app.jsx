@@ -2,8 +2,7 @@ import produce from 'immer'
 import ReactDOM from 'react-dom';
 import React, { 
   useState, 
-  useEffect, 
-  useCallback,
+  useEffect,
 } from 'react';
 
 import './app.css';
@@ -52,38 +51,34 @@ const App = () => {
         if (x - 1 >= 0) {
           return [x - 1, y]
         }
-        return turnRight()
       },
       down: () => {
         if (x + 1 < data.length) {
           return [x + 1, y]
         }
-        return turnRight()
       },
       right: () => {
         if (y + 1 < data.length) {
           return [x, y + 1]
         }
-        return turnRight()
       },
       left: () => {
         if (y - 1 >= 0) {
           return [x, y - 1]
         }
-        return turnRight()
       },
     }[cursor.direction]
 
-    const [newX, newY] = nextMove()
+    const [newX, newY] = nextMove() || turnRight()
 
-    updateData(produce(draft => {      
-      if (!(newX === x && newY === y)) {
+    if (!(newX === x && newY === y)) {
+      updateData(produce(draft => {      
         draft[newX][newY] = draft[x][y]
         draft[x][y] = false        
-      }
-    }))
- 
-    updateCoordinates([newX, newY])
+      }))
+
+      updateCoordinates([newX, newY])
+    } 
   }
 
   return (
