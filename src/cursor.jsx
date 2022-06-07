@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
 
-const to = (direction = "right") => ({
-  right: '90deg',
-  left: '-90deg',
-  up: '0deg',
-  down: '180deg',
+const to = (direction) => ({
+  down: '90deg',
+  up: '-90deg',
+  right: '0deg',
+  left: '180deg',
 })[direction]
 
-const Cursor = ({ direction = "right" }) => (
+const flip = (direction) => direction === "left" ? "-1, -1" : "-1, 1"
+
+const Cursor = ({ direction = "right", emoji = "🏎" }) => (
   <span
     style={{
      display: 'flex',     
-     transform: `rotate(${to(direction)})`,
+     transform: `rotate(${to(direction)}) scale(${flip(direction)})`,
     }}
   >
-    ☝️
+    {emoji}
   </span>
 )
 
